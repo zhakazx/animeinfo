@@ -11,7 +11,7 @@ import { LoadingSkeleton } from '@/components/shared/loading-skeleton';
 import { 
   getAnimeById, 
   getAnimeCharacters, 
-  getAnimeRecommendations 
+  getEnhancedAnimeRecommendations 
 } from '@/lib/api/jikan';
 import { Anime } from '@/lib/types/anime';
 
@@ -40,7 +40,7 @@ export default function AnimePageClient({ animeId, initialAnime }: AnimePageClie
   // Fetch recommendations
   const { data: recommendations, isLoading: recommendationsLoading } = useQuery({
     queryKey: ['anime-recommendations', animeId],
-    queryFn: () => getAnimeRecommendations(animeId),
+    queryFn: () => getEnhancedAnimeRecommendations(animeId),
     enabled: !!anime,
     staleTime: 1000 * 60 * 30, // 30 minutes
   });

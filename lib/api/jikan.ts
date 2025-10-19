@@ -175,6 +175,68 @@ export async function getAnimeRecommendations(id: number): Promise<Recommendatio
   }
 }
 
+export async function getEnhancedAnimeRecommendations(id: number): Promise<JikanAnime[]> {
+  try {
+    const response = await fetchJikan<JikanRecommendationsResponse>(`/anime/${id}/recommendations`, CACHE_DURATIONS.ANIME_DETAILS);
+    
+    // Get the first 6 recommendations
+    const recommendations = response.data.slice(0, 6);
+    
+    // Fetch basic details for each recommendation
+    const enhancedRecommendations = await Promise.allSettled(
+      recommendations.map(async (rec) => {
+        try {
+          const animeResponse = await fetchJikan<JikanSingleAnimeResponse>(`/anime/${rec.entry.mal_id}`, CACHE_DURATIONS.ANIME_DETAILS);
+          return animeResponse.data;
+        } catch (error) {
+          // If individual anime fetch fails, return basic data
+          return {
+            mal_id: rec.entry.mal_id,
+            url: rec.entry.url,
+            title: rec.entry.title,
+            title_english: null,
+            title_japanese: null,
+            synopsis: null,
+            score: null,
+            scored_by: null,
+            rank: null,
+            popularity: null,
+            members: null,
+            favorites: null,
+            episodes: null,
+            status: '',
+            airing: false,
+            aired: { from: null, to: null },
+            season: null,
+            year: null,
+            genres: [],
+            studios: [],
+            producers: [],
+            images: rec.entry.images,
+            trailer: { youtube_id: null, url: null, embed_url: null },
+            streaming: [],
+            type: '',
+            source: '',
+            duration: null,
+            rating: null,
+            broadcast: null,
+            external: []
+          } as JikanAnime;
+        }
+      })
+    );
+    
+    // Filter out failed requests and return successful ones
+    return enhancedRecommendations
+      .filter((result): result is PromiseFulfilledResult<JikanAnime> => result.status === 'fulfilled')
+      .map(result => result.value);
+      
+  } catch (error) {
+    // If recommendations fail, return empty result
+    return [];
+  }
+}
+
 export async function getGenres(): Promise<{ data: Array<{ mal_id: number; name: string; count: number }> }> {
   return fetchJikan<{ data: Array<{ mal_id: number; name: string; count: number }> }>('/genres/anime', CACHE_DURATIONS.STATIC_CONTENT);
 }
