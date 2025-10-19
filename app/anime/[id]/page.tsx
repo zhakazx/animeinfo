@@ -11,7 +11,8 @@ interface AnimePageProps {
 
 export async function generateMetadata({ params }: AnimePageProps): Promise<Metadata> {
   try {
-    const anime = await getAnimeById(parseInt(params.id));
+    const resolvedParams = await params;
+    const anime = await getAnimeById(parseInt(resolvedParams.id));
     return generateAnimeMetadata(anime);
   } catch (error) {
     return {
@@ -22,11 +23,12 @@ export async function generateMetadata({ params }: AnimePageProps): Promise<Meta
 }
 
 export default async function AnimePage({ params }: AnimePageProps) {
+  const resolvedParams = await params;
   let anime = null;
   let structuredData = null;
 
   try {
-    anime = await getAnimeById(parseInt(params.id));
+    anime = await getAnimeById(parseInt(resolvedParams.id));
     structuredData = generateAnimeStructuredData(anime);
   } catch (error) {
     // Handle error in client component
@@ -40,7 +42,7 @@ export default async function AnimePage({ params }: AnimePageProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       )}
-      <AnimePageClient animeId={parseInt(params.id)} initialAnime={anime} />
+      <AnimePageClient animeId={parseInt(resolvedParams.id)} initialAnime={anime} />
     </>
   );
 }

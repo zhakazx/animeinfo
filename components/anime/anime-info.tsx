@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { JikanAnime } from '@/lib/types/anime';
-import { formatScore, formatDate, formatDuration } from '@/lib/utils/format-date';
+import { formatScore, formatDate, formatDuration, formatNumber } from '@/lib/utils/format-date';
 import { STREAMING_PLATFORMS } from '@/lib/constants';
 
 interface AnimeInfoProps {
@@ -37,7 +37,7 @@ export function AnimeInfo({ anime }: AnimeInfoProps) {
                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 <span className="font-bold">{score}</span>
                 <span className="text-xs text-muted-foreground">
-                  ({anime.scored_by?.toLocaleString()})
+                  ({formatNumber(anime.scored_by)})
                 </span>
               </div>
             </div>

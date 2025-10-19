@@ -1,5 +1,5 @@
-export const JIKAN_BASE_URL = 'https://api.jikan.moe/v4';
-export const YOUTUBE_BASE_URL = 'https://www.googleapis.com/youtube/v3';
+export const JIKAN_BASE_URL = process.env.NEXT_PUBLIC_JIKAN_API_URL || 'https://api.jikan.moe/v4';
+export const YOUTUBE_BASE_URL = process.env.NEXT_PUBLIC_YOUTUBE_API_URL || 'https://www.googleapis.com/youtube/v3';
 
 // Rate limiting for Jikan API: 3 requests/second, 60 requests/minute
 export const JIKAN_RATE_LIMIT = {

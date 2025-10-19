@@ -60,11 +60,11 @@ export function formatDuration(duration?: string | null): string {
 }
 
 /**
- * Format large numbers with commas
+ * Format large numbers with commas (using consistent locale to prevent hydration issues)
  */
 export function formatNumber(num?: number): string {
   if (!num) return '';
-  return num.toLocaleString();
+  return num.toLocaleString('en-US');
 }
 
 /**

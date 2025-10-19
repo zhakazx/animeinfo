@@ -4,7 +4,7 @@ import { Play, Star, Calendar, Clock, Tv } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { JikanAnime } from '@/lib/types/anime';
-import { formatScore, formatYear, formatDuration } from '@/lib/utils/format-date';
+import { formatScore, formatYear, formatDuration, formatNumber } from '@/lib/utils/format-date';
 
 interface AnimeHeroProps {
   anime: JikanAnime;
@@ -97,7 +97,7 @@ export function AnimeHero({ anime }: AnimeHeroProps) {
                     <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                     <span className="font-medium">{score}</span>
                     <span className="text-muted-foreground">
-                      ({anime.scored_by?.toLocaleString()} users)
+                      ({formatNumber(anime.scored_by)} users)
                     </span>
                   </div>
                 )}
