@@ -14,7 +14,8 @@ export function Pagination({ currentPage, totalPages, onPageChange, className = 
   if (totalPages <= 1) return null;
 
   const getVisiblePages = () => {
-    const delta = 2;
+    // Use smaller delta on mobile
+    const delta = window.innerWidth < 640 ? 1 : 2;
     const range = [];
     const rangeWithDots = [];
 
@@ -42,25 +43,26 @@ export function Pagination({ currentPage, totalPages, onPageChange, className = 
   const visiblePages = getVisiblePages();
 
   return (
-    <div className={`flex items-center justify-center space-x-2 ${className}`}>
+    <div className={`flex items-center justify-center space-x-1 sm:space-x-2 ${className}`}>
       {/* Previous Button */}
       <Button
         variant="outline"
         size="sm"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage <= 1}
-        className="gap-1"
+        className="gap-1 px-2 sm:px-3"
       >
         <ChevronLeft className="h-4 w-4" />
-        Previous
+        <span className="hidden xs:inline">Previous</span>
+        <span className="xs:hidden">Prev</span>
       </Button>
 
       {/* Page Numbers */}
-      <div className="flex items-center space-x-1">
+      <div className="flex items-center space-x-0.5 sm:space-x-1">
         {visiblePages.map((page, index) => {
           if (page === '...') {
             return (
-              <div key={`dots-${index}`} className="px-2">
+              <div key={`dots-${index}`} className="px-1 sm:px-2">
                 <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
               </div>
             );
@@ -75,7 +77,7 @@ export function Pagination({ currentPage, totalPages, onPageChange, className = 
               variant={isCurrentPage ? "default" : "outline"}
               size="sm"
               onClick={() => onPageChange(pageNumber)}
-              className="w-10 h-10 p-0"
+              className="w-8 h-8 sm:w-10 sm:h-10 p-0 text-xs sm:text-sm"
             >
               {pageNumber}
             </Button>
@@ -89,9 +91,10 @@ export function Pagination({ currentPage, totalPages, onPageChange, className = 
         size="sm"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage >= totalPages}
-        className="gap-1"
+        className="gap-1 px-2 sm:px-3"
       >
-        Next
+        <span className="hidden xs:inline">Next</span>
+        <span className="xs:hidden">Next</span>
         <ChevronRight className="h-4 w-4" />
       </Button>
     </div>

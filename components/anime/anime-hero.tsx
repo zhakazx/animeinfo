@@ -18,7 +18,7 @@ export function AnimeHero({ anime }: AnimeHeroProps) {
   const duration = formatDuration(anime.duration);
 
   return (
-    <section className="relative h-[60vh] min-h-[500px] w-full overflow-hidden">
+    <section className="relative h-[50vh] xs:h-[55vh] sm:h-[60vh] min-h-[400px] xs:min-h-[450px] sm:min-h-[500px] w-full overflow-hidden">
       {/* Background Image */}
       {imageUrl && (
         <div className="absolute inset-0">
@@ -39,18 +39,18 @@ export function AnimeHero({ anime }: AnimeHeroProps) {
 
       {/* Content */}
       <div className="relative h-full flex items-end">
-        <div className="container mx-auto px-4 pb-12">
-          <div className="flex flex-col md:flex-row gap-8 items-end">
+        <div className="container mx-auto px-3 xs:px-4 pb-6 xs:pb-8 sm:pb-12">
+          <div className="flex flex-col md:flex-row gap-4 xs:gap-6 sm:gap-8 items-end">
             {/* Poster Image */}
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 self-center md:self-end">
               {imageUrl && (
-                <div className="relative w-48 h-72 rounded-lg overflow-hidden shadow-2xl">
+                <div className="relative w-32 h-48 xs:w-40 xs:h-60 sm:w-48 sm:h-72 rounded-lg overflow-hidden shadow-2xl">
                   <Image
                     src={imageUrl}
                     alt={`${title} poster`}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 192px, 192px"
+                    sizes="(max-width: 475px) 128px, (max-width: 640px) 160px, 192px"
                     priority
                   />
                 </div>
@@ -58,45 +58,45 @@ export function AnimeHero({ anime }: AnimeHeroProps) {
             </div>
 
             {/* Info */}
-            <div className="flex-1 space-y-4">
+            <div className="flex-1 space-y-3 xs:space-y-4 text-center md:text-left">
               {/* Status and Type */}
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center justify-center md:justify-start gap-1.5 xs:gap-2 flex-wrap">
                 {anime.airing && (
-                  <Badge variant="destructive" className="bg-red-500/90">
+                  <Badge variant="destructive" className="bg-red-500/90 text-xs xs:text-sm">
                     Currently Airing
                   </Badge>
                 )}
                 {anime.type && (
-                  <Badge variant="secondary">
+                  <Badge variant="secondary" className="text-xs xs:text-sm">
                     {anime.type}
                   </Badge>
                 )}
                 {anime.status && (
-                  <Badge variant="outline">
+                  <Badge variant="outline" className="text-xs xs:text-sm">
                     {anime.status}
                   </Badge>
                 )}
               </div>
 
               {/* Title */}
-              <div className="space-y-2">
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+              <div className="space-y-1 xs:space-y-2">
+                <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
                   {title}
                 </h1>
                 {anime.title !== title && (
-                  <p className="text-xl text-muted-foreground">
+                  <p className="text-base xs:text-lg sm:text-xl text-muted-foreground">
                     {anime.title}
                   </p>
                 )}
               </div>
 
               {/* Metadata */}
-              <div className="flex items-center gap-6 text-sm flex-wrap">
+              <div className="flex items-center justify-center md:justify-start gap-3 xs:gap-4 sm:gap-6 text-xs xs:text-sm flex-wrap">
                 {anime.score && (
                   <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <Star className="h-3 w-3 xs:h-4 xs:w-4 fill-yellow-400 text-yellow-400" />
                     <span className="font-medium">{score}</span>
-                    <span className="text-muted-foreground">
+                    <span className="text-muted-foreground hidden xs:inline">
                       ({formatNumber(anime.scored_by || undefined)} users)
                     </span>
                   </div>
@@ -104,21 +104,22 @@ export function AnimeHero({ anime }: AnimeHeroProps) {
                 
                 {year && (
                   <div className="flex items-center gap-1 text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
+                    <Calendar className="h-3 w-3 xs:h-4 xs:w-4" />
                     <span>{year}</span>
                   </div>
                 )}
                 
                 {anime.episodes && (
                   <div className="flex items-center gap-1 text-muted-foreground">
-                    <Tv className="h-4 w-4" />
-                    <span>{anime.episodes} episodes</span>
+                    <Tv className="h-3 w-3 xs:h-4 xs:w-4" />
+                    <span className="hidden xs:inline">{anime.episodes} episodes</span>
+                    <span className="xs:hidden">{anime.episodes} ep</span>
                   </div>
                 )}
                 
                 {duration && (
                   <div className="flex items-center gap-1 text-muted-foreground">
-                    <Clock className="h-4 w-4" />
+                    <Clock className="h-3 w-3 xs:h-4 xs:w-4" />
                     <span>{duration}</span>
                   </div>
                 )}
@@ -126,37 +127,42 @@ export function AnimeHero({ anime }: AnimeHeroProps) {
 
               {/* Synopsis */}
               {anime.synopsis && (
-                <p className="text-lg text-muted-foreground line-clamp-3 max-w-3xl">
+                <p className="text-sm xs:text-base sm:text-lg text-muted-foreground line-clamp-2 xs:line-clamp-3 max-w-3xl">
                   {anime.synopsis}
                 </p>
               )}
 
               {/* Genres */}
               {anime.genres && anime.genres.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {anime.genres.map((genre) => (
-                    <Badge key={genre.mal_id} variant="outline" className="bg-background/50">
+                <div className="flex flex-wrap justify-center md:justify-start gap-1.5 xs:gap-2">
+                  {anime.genres.slice(0, 4).map((genre) => (
+                    <Badge key={genre.mal_id} variant="outline" className="bg-background/50 text-xs xs:text-sm">
                       {genre.name}
                     </Badge>
                   ))}
+                  {anime.genres.length > 4 && (
+                    <Badge variant="outline" className="bg-background/50 text-xs xs:text-sm">
+                      +{anime.genres.length - 4}
+                    </Badge>
+                  )}
                 </div>
               )}
 
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <div className="flex flex-col xs:flex-row gap-2 xs:gap-3 sm:gap-4 pt-2 xs:pt-4">
                 {anime.trailer?.youtube_id && (
-                  <Button size="lg" asChild className="bg-primary hover:bg-primary/90">
+                  <Button size="sm" asChild className="bg-primary hover:bg-primary/90 xs:size-default">
                     <Link href="#trailer">
-                      <Play className="mr-2 h-5 w-5" />
-                      Watch Trailer
+                      <Play className="mr-1.5 xs:mr-2 h-4 w-4 xs:h-5 xs:w-5" />
+                      <span className="text-sm xs:text-base">Watch Trailer</span>
                     </Link>
                   </Button>
                 )}
                 
                 {anime.url && (
-                  <Button size="lg" variant="outline" asChild className="bg-background/50 hover:bg-background/70">
+                  <Button size="sm" variant="outline" asChild className="bg-background/50 hover:bg-background/70 xs:size-default">
                     <a href={anime.url} target="_blank" rel="noopener noreferrer">
-                      View on MyAnimeList
+                      <span className="text-sm xs:text-base">View on MyAnimeList</span>
                     </a>
                   </Button>
                 )}

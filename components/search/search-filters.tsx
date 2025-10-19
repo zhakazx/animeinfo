@@ -82,12 +82,12 @@ export function SearchFilters({ filters, onFiltersChange, className = "" }: Sear
           </Button>
         </DialogTrigger>
         
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto mx-3 sm:mx-auto">
           <DialogHeader>
-            <DialogTitle>Search Filters</DialogTitle>
+            <DialogTitle className="text-lg sm:text-xl">Search Filters</DialogTitle>
           </DialogHeader>
           
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Type Filter */}
             <div className="space-y-2">
               <label className="text-sm font-medium">Type</label>
@@ -143,7 +143,7 @@ export function SearchFilters({ filters, onFiltersChange, className = "" }: Sear
             </div>
 
             {/* Sort Options */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Sort by</label>
                 <Select value={filters.order_by || 'score'} onValueChange={(value) => updateFilter('order_by', value)}>

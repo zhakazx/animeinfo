@@ -56,22 +56,22 @@ export function AnimeCard({ anime, priority = false }: AnimeCardProps) {
           )}
         </div>
 
-        <CardContent className="p-3">
-          <div className="space-y-2">
+        <CardContent className="p-2 sm:p-3">
+          <div className="space-y-1.5 sm:space-y-2">
             {/* Title */}
-            <h3 className="font-semibold text-sm line-clamp-2 group-hover:text-primary transition-colors">
+            <h3 className="font-semibold text-xs sm:text-sm line-clamp-2 group-hover:text-primary transition-colors leading-tight">
               {title}
             </h3>
 
             {/* Metadata */}
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <div className="flex items-center gap-1">
-                <Calendar className="h-3 w-3" />
-                <span>{year}</span>
+                <Calendar className="h-3 w-3 flex-shrink-0" />
+                <span className="truncate">{year}</span>
               </div>
               
               {anime.type && (
-                <Badge variant="outline" className="text-xs px-1 py-0">
+                <Badge variant="outline" className="text-xs px-1 py-0 flex-shrink-0">
                   {anime.type}
                 </Badge>
               )}
@@ -79,26 +79,26 @@ export function AnimeCard({ anime, priority = false }: AnimeCardProps) {
 
             {/* Episodes */}
             {anime.episodes && (
-              <div className="text-xs text-muted-foreground">
+              <div className="text-xs text-muted-foreground truncate">
                 {anime.episodes} episodes
               </div>
             )}
 
             {/* Genres */}
             {anime.genres && anime.genres.length > 0 && (
-              <div className="flex flex-wrap gap-1">
-                {anime.genres.slice(0, 2).map((genre) => (
+              <div className="flex flex-wrap gap-1 overflow-hidden">
+                {anime.genres.slice(0, 1).map((genre) => (
                   <Badge
                     key={genre.mal_id}
                     variant="secondary"
-                    className="text-xs px-1 py-0"
+                    className="text-xs px-1 py-0 truncate max-w-full"
                   >
                     {genre.name}
                   </Badge>
                 ))}
-                {anime.genres.length > 2 && (
-                  <Badge variant="secondary" className="text-xs px-1 py-0">
-                    +{anime.genres.length - 2}
+                {anime.genres.length > 1 && (
+                  <Badge variant="secondary" className="text-xs px-1 py-0 flex-shrink-0">
+                    +{anime.genres.length - 1}
                   </Badge>
                 )}
               </div>

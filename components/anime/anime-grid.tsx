@@ -13,7 +13,7 @@ interface AnimeGridProps {
 export function AnimeGrid({ anime, isLoading = false, priority = false, className = '', emptyMessage }: AnimeGridProps) {
   if (isLoading) {
     return (
-      <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 ${className}`}>
+      <div className={`grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 ${className}`}>
         {Array.from({ length: 12 }).map((_, index) => (
           <AnimeCardSkeleton key={index} />
         ))}
@@ -32,7 +32,7 @@ export function AnimeGrid({ anime, isLoading = false, priority = false, classNam
   }
 
   return (
-    <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 ${className}`}>
+    <div className={`grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 ${className}`}>
       {anime.map((item, index) => (
         <AnimeCard
           key={item.mal_id}

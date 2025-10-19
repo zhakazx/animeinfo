@@ -37,43 +37,40 @@ export function AnimeCharacters({ characters, isLoading = false }: AnimeCharacte
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Users className="h-5 w-5" />
+        <CardTitle className="flex items-center gap-2 text-base xs:text-lg">
+          <Users className="h-4 w-4 xs:h-5 xs:w-5" />
           Characters
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {mainCharacters.map((item) => {
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-3 xs:gap-4">
+          {characters.slice(0, 12).map((item) => {
             const character = item.character;
             const voiceActors = item.voice_actors || [];
-            const imageUrl = character.images?.jpg?.image_url;
+            const imageUrl = character.images?.jpg?.image_url || character.images?.webp?.image_url;
 
             return (
-              <div
-                key={character.mal_id}
-                className="flex gap-3 p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
-              >
+              <div key={character.mal_id} className="flex items-start gap-2 xs:gap-3 p-2 xs:p-3 rounded-lg border bg-card">
                 {/* Character Image */}
-                <div className="relative w-12 h-16 flex-shrink-0 rounded overflow-hidden bg-muted">
+                <div className="relative w-10 h-10 xs:w-12 xs:h-12 rounded-full overflow-hidden flex-shrink-0">
                   {imageUrl ? (
                     <Image
                       src={imageUrl}
                       alt={character.name}
                       fill
                       className="object-cover"
-                      sizes="48px"
+                      sizes="(max-width: 475px) 40px, 48px"
                     />
                   ) : (
                     <div className="w-full h-full bg-muted flex items-center justify-center">
-                      <Users className="h-4 w-4 text-muted-foreground" />
+                      <Users className="h-3 w-3 xs:h-4 xs:w-4 text-muted-foreground" />
                     </div>
                   )}
                 </div>
 
                 {/* Character Info */}
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-medium text-sm line-clamp-1">
+                  <h4 className="font-medium text-xs xs:text-sm line-clamp-1">
                     {character.name}
                   </h4>
                   
@@ -85,7 +82,7 @@ export function AnimeCharacters({ characters, isLoading = false }: AnimeCharacte
 
                   {/* Voice Actor (Japanese) */}
                   {voiceActors.length > 0 && (
-                    <div className="mt-2">
+                    <div className="mt-1 xs:mt-2">
                       {voiceActors
                         .filter(va => va.language === 'Japanese')
                         .slice(0, 1)
@@ -103,7 +100,7 @@ export function AnimeCharacters({ characters, isLoading = false }: AnimeCharacte
         </div>
 
         {characters.length > 12 && (
-          <p className="text-sm text-muted-foreground text-center mt-4">
+          <p className="text-xs xs:text-sm text-muted-foreground text-center mt-3 xs:mt-4">
             Showing {mainCharacters.length} of {characters.length} characters
           </p>
         )}
