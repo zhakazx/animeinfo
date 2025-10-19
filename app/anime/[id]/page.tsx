@@ -14,10 +14,10 @@ export async function generateMetadata({ params }: AnimePageProps): Promise<Meta
     const resolvedParams = await params;
     const anime = await getAnimeById(parseInt(resolvedParams.id));
     return generateAnimeMetadata(anime);
-  } catch (error) {
+  } catch (_error) {
     return {
       title: 'Anime Not Found - AnimeInfo',
-      description: 'The requested anime could not be found. Explore other anime on AnimeInfo.'
+      description: 'The requested anime could not be found. Explore other anime on AnimeInfo.',
     };
   }
 }
@@ -30,7 +30,7 @@ export default async function AnimePage({ params }: AnimePageProps) {
   try {
     anime = await getAnimeById(parseInt(resolvedParams.id));
     structuredData = generateAnimeStructuredData(anime);
-  } catch (error) {
+  } catch (_error) {
     // Handle error in client component
   }
 

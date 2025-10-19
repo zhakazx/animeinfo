@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { SearchBar } from '@/components/search/search-bar';
 import { SearchFilters } from '@/components/search/search-filters';
@@ -26,7 +26,6 @@ interface SearchPageClientProps {
 
 export default function SearchPageClient({ searchParams }: SearchPageClientProps) {
   const router = useRouter();
-  const urlSearchParams = useSearchParams();
   const scrollPositionRef = useRef<number>(0);
   const isInitialLoad = useRef(true);
 
@@ -164,7 +163,7 @@ export default function SearchPageClient({ searchParams }: SearchPageClientProps
             {!isLoading && hasResults && (
               <div className="flex items-center justify-between">
                 <p className="text-sm text-muted-foreground">
-                  {searchResults.pagination?.items?.total || 0} results found for "{query}"
+                  {searchResults.pagination?.items?.total || 0} results found for &ldquo;{query}&rdquo;
                 </p>
               </div>
             )}
@@ -173,7 +172,7 @@ export default function SearchPageClient({ searchParams }: SearchPageClientProps
             <AnimeGrid
               anime={searchResults?.data || []}
               isLoading={isLoading}
-              emptyMessage={`No anime found for "${query}"`}
+              emptyMessage={`No anime found for '${query}'`}
             />
 
             {/* Pagination */}

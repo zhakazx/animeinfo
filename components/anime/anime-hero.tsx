@@ -97,7 +97,7 @@ export function AnimeHero({ anime }: AnimeHeroProps) {
                     <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                     <span className="font-medium">{score}</span>
                     <span className="text-muted-foreground">
-                      ({formatNumber(anime.scored_by)} users)
+                      ({formatNumber(anime.scored_by || undefined)} users)
                     </span>
                   </div>
                 )}

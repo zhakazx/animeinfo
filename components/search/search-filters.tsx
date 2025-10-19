@@ -36,7 +36,7 @@ interface SearchFiltersProps {
 export function SearchFilters({ filters, onFiltersChange, className = "" }: SearchFiltersProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const updateFilter = (key: keyof SearchFiltersType, value: any) => {
+  const updateFilter = (key: keyof SearchFiltersType, value: string | number[] | 'asc' | 'desc' | undefined) => {
     onFiltersChange({
       ...filters,
       [key]: value,

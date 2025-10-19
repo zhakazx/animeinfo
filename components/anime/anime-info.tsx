@@ -37,7 +37,7 @@ export function AnimeInfo({ anime }: AnimeInfoProps) {
                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 <span className="font-bold">{score}</span>
                 <span className="text-xs text-muted-foreground">
-                  ({formatNumber(anime.scored_by)})
+                  ({formatNumber(anime.scored_by || undefined)})
                 </span>
               </div>
             </div>

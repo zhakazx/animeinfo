@@ -20,7 +20,7 @@ class JikanAPIError extends Error {
 
 // Request queue for rate limiting
 class RequestQueue {
-  private queue: Array<() => Promise<any>> = [];
+  private queue: Array<() => Promise<unknown>> = [];
   private processing = false;
   private lastRequestTime = 0;
   private readonly minInterval = 334; // ~3 requests per second
@@ -169,7 +169,7 @@ export async function getAnimeRecommendations(id: number): Promise<Recommendatio
     const animeData = response.data.slice(0, 12).map(rec => rec.entry);
     
     return animeData;
-  } catch (error) {
+  } catch (_error) {
     // If recommendations fail, return empty result
     return [];
   }
@@ -188,7 +188,7 @@ export async function getEnhancedAnimeRecommendations(id: number): Promise<Jikan
         try {
           const animeResponse = await fetchJikan<JikanSingleAnimeResponse>(`/anime/${rec.entry.mal_id}`, CACHE_DURATIONS.ANIME_DETAILS);
           return animeResponse.data;
-        } catch (error) {
+        } catch (_error) {
           // If individual anime fetch fails, return basic data
           return {
             mal_id: rec.entry.mal_id,
@@ -231,7 +231,7 @@ export async function getEnhancedAnimeRecommendations(id: number): Promise<Jikan
       .filter((result): result is PromiseFulfilledResult<JikanAnime> => result.status === 'fulfilled')
       .map(result => result.value);
       
-  } catch (error) {
+  } catch (_error) {
     // If recommendations fail, return empty result
     return [];
   }
