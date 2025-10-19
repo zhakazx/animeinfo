@@ -258,7 +258,7 @@ export function getStreamingUrl(animeName: string, platform: string): string {
     case 'crunchyroll':
       return `https://www.crunchyroll.com/search?q=${encodedName}`;
     case 'muse indonesia':
-      return `https://www.youtube.com/c/MuseIndonesiaOfficial/search?query=${encodedName}`;
+      return `https://www.youtube.com/@MuseIndonesia/search?query=${encodedName}`;
     case 'bilibili':
       return `https://www.bilibili.tv/en/search?keyword=${encodedName}`;
     case 'funimation':

@@ -1,5 +1,5 @@
-export const JIKAN_BASE_URL = process.env.NEXT_PUBLIC_JIKAN_API_URL || 'https://api.jikan.moe/v4';
-export const YOUTUBE_BASE_URL = process.env.NEXT_PUBLIC_YOUTUBE_API_URL || 'https://www.googleapis.com/youtube/v3';
+export const JIKAN_BASE_URL = process.env.NEXT_PUBLIC_JIKAN_API_URL || '';
+export const YOUTUBE_BASE_URL = process.env.NEXT_PUBLIC_YOUTUBE_API_URL || '';
 
 // Rate limiting for Jikan API: 3 requests/second, 60 requests/minute
 export const JIKAN_RATE_LIMIT = {
@@ -67,7 +67,7 @@ export const ORDER_BY_OPTIONS = [
 // Streaming platforms
 export const STREAMING_PLATFORMS = [
   { name: 'Crunchyroll', searchUrl: 'https://www.crunchyroll.com/search?q={query}' },
-  { name: 'Muse Indonesia', searchUrl: 'https://www.youtube.com/c/MuseIndonesiaOfficial/search?query={query}' },
+  { name: 'Muse Indonesia', searchUrl: 'https://www.youtube.com/@MuseIndonesia/search?query={query}' },
   { name: 'Bilibili', searchUrl: 'https://search.bilibili.com/all?keyword={query}' },
   { name: 'Funimation', searchUrl: 'https://www.funimation.com/search/?q={query}' },
   { name: 'Netflix', searchUrl: 'https://www.netflix.com/search?q={query}' },
